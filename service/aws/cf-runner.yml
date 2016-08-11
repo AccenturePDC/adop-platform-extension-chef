@@ -1,0 +1,19 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: launch ansible cloudformation for chef
+      cloudformation:
+        stack_name: "ansible-cloudformation"
+        state: "present"
+        region: "{{ lookup('env','AWS_DEFAULT_REGION') }}"
+        disable_rollback: true
+        template: "service/aws/service.template"
+        template_parameters:
+          KeyName: "{{ lookup('env','AWS_KEY_PAIR') }}"
+          InstanceType: "t2.large"
+          EnvironmentName: "ChefServer"
+          EnvironmentSubnet: "{{ lookup('env','AWS_PUBLIC_SUBNET_ID') }}"
+          VPCId: "{{ lookup('env','AWS_VPC_ID') }}"
+          InboundCIDR: "0.0.0.0/0"
+        tags:
+          Stack: "chef-stack"
