@@ -21,5 +21,8 @@
 
     - debug: var=cf_out
 
-    - name: Copy cloudformation facts into a file
+    - name: Copy all the cloudformation output facts into a file
       copy: content={{ cf_out }} dest=./cf_out.json
+
+    - name: Copy the ip address attributes of the facts into a file
+      copy: content={{ cf_out["stack_outputs"]["EC2InstancePrivateIp"] }} dest=./instance_ip.txt
