@@ -7,7 +7,7 @@
         state: "present"
         region: "{{ lookup('env','AWS_DEFAULT_REGION') }}"
         disable_rollback: true
-        template: "service/aws/service.template"
+        template: "service.template"
         template_parameters:
           KeyName: "{{ lookup('env','AWS_KEY_PAIR') }}"
           InstanceType: "t2.large"
