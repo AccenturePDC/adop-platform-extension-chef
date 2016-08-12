@@ -1,7 +1,7 @@
 - hosts: localhost
   connection: local
   tasks:
-    - name: launch ansible cloudformation for chef
+    - name: Launch cloudformation for Chef extension
       cloudformation:
         stack_name: "ansible-cloudformation"
         state: "present"
@@ -17,3 +17,9 @@
           InboundCIDR: "0.0.0.0/0"
         tags:
           Stack: "chef-stack"
+      register: cf_out
+
+     - debug: var=cf_out.stdout_lines
+
+     - name: Copy cloudformation facts into a file
+       copy: content={{ cf_out }} dest=./cf_out.json
