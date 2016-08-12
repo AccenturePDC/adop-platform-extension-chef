@@ -19,7 +19,7 @@
           Stack: "chef-stack"
       register: cf_out
 
-    - debug: var=cf_out.stdout_lines
+    - debug: var=cf_out
 
     - name: Copy cloudformation facts into a file
       copy: content={{ cf_out }} dest=./cf_out.json
