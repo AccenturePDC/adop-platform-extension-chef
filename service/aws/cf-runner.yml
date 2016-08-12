@@ -5,14 +5,14 @@
       cloudformation:
         stack_name: "ansible-cloudformation"
         state: "present"
-        region: "{{ lookup('env','AWS_DEFAULT_REGION') }}"
+        region: "{{ lookup('env','AWS_REGION') }}"
         disable_rollback: true
         template: "service.template"
         template_parameters:
-          KeyName: "{{ lookup('env','AWS_KEY_PAIR') }}"
+          KeyName: "{{ lookup('env','AWS_KEYPAIR') }}"
           InstanceType: "t2.large"
           EnvironmentName: "ChefServer"
-          EnvironmentSubnet: "{{ lookup('env','AWS_PUBLIC_SUBNET_ID') }}"
+          EnvironmentSubnet: "{{ lookup('env','AWS_SUBNET_ID') }}"
           VPCId: "{{ lookup('env','AWS_VPC_ID') }}"
           InboundCIDR: "0.0.0.0/0"
         tags:
